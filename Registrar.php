@@ -14,17 +14,19 @@
 			$password = "root123"; 	
 			$bd_name = "u347232914_quiz";
 			
-			// Verificamos que nos llegan los datos por el POST
-			//$a=$_POST['nombreCompleto'];
-			//$b=$_POST['mail'];
-			//$c=$_POST['numero'];
-			//$d=$_POST['especialidad'];
-				
-			//echo $a;
-			//echo $b;
-			//echo $c;
-			//echo $d;
 			
+			//añadida la parte de seguridad, con filter_var podemos validar el correo electronico
+			//Vamos a validar el resto de variables también, para ello usamos preg_match y la expresión regular que usamos en el apartado de registro en el jscript
+			//strlen sirve para medir el numero de caracteres de una variable
+			
+			if ((!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL) === false) and 
+				(preg_match("/^[a-zA-Z]+\d{3}@ikasle\.ehu\.(es|eus)$/", $_POST['mail'])) and
+				(strlen($_POST['pass']) >= 6) and (preg_match("/^\d{9}$/", $_POST['numero'])) and
+				(strlen($_POST['especialidad']) >= 5) and 
+				(preg_match("/^[a-zA-Z]+[a-zA-Z] [a-zA-Z]+[a-zA-Z] [a-zA-Z]+[a-zA-Z]( [a-zA-Z]+[a-zA-Z])*$/",		
+				$_POST['nombreCompleto'])))
+			
+			{
 			
 			//Conexión de Base de Datos	 
 			$connection = new mysqli($server, $user, $password, $bd_name);
@@ -40,12 +42,21 @@
 		
 				if ($connection->query($sql) === TRUE) {
 				echo "Se ha agregado correctamente el registro a la base de datos.";
-				
-			} else {
+				} 
+				else {
 				echo "Error: " . $sql . "<br>" . $connection->error;
+				}	
+			$connection->close();
+			
 			}
 			
-			$connection->close();
+			else 
+			{
+				echo "Error en la validación de uno de los formularios";
+				
+			}
+			
+
 		 ?>
 		 
 		<br>
