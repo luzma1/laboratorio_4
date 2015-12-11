@@ -39,7 +39,8 @@
 			//generamos la sentencia sql para insertar los datos
 			$sql = "INSERT INTO usuario (nombre, email, password, telefono, especialidad, fotografia)	
 			VALUES ('{$_POST['nombreCompleto']}','{$_POST['mail']}','{$_POST['pass']}','{$_POST['numero']}','{$_POST['especialidad']}', null)";
-		
+		 
+				//Si se crea correctamente la consulta, el query de sql devolverá true
 				if ($connection->query($sql) === TRUE) {
 				echo "Se ha agregado correctamente el registro a la base de datos.";
 				} 
@@ -55,8 +56,6 @@
 				echo "Error en la validación de uno de los formularios";
 				
 			}
-			
-
 		 ?>
 		 
 		<br>
