@@ -2,6 +2,16 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 	
 <!--Para que podamos usar acentos y caracteres raros -->
+    <link rel='stylesheet' type='text/css' href='estilos/style.css' />
+	<link rel='stylesheet' 
+		   type='text/css' 
+		   media='only screen and (min-width: 530px) and (min-device-width: 481px)'
+		   href='estilos/wide.css' />
+	<link rel='stylesheet' 
+		   type='text/css' 
+		   media='only screen and (max-width: 480px)'
+		   href='estilos/smartphone.css' />
+
 <head><title> Registro </title>
 	
 <script>
@@ -98,7 +108,7 @@
 
 </head>
 
-<body style="background-color: lightgrey"> 
+<body style="background-color: transparent"> 
 
 <form id='registro' onSubmit='return verificarCampos()' action="Registrar.php"  method="POST">	
 		

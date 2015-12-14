@@ -13,7 +13,7 @@
 	   media='only screen and (max-width: 480px)'
 	   href='estilos/smartphone.css' />
 
-<head><title> Mostrar Usuarios </title></head>
+<head><title> Mostrar Preguntas </title></head>
 
 <body>
         <div>	
@@ -25,7 +25,17 @@
 			$password = "root123"; 	
 			$bd_name = "u347232914_quiz";
 			
+			//$server = "localhost";
+			//$user = "root"; 		
+			//$password = "root"; 	
+			//$bd_name = "Quiz";
+
+
+			session_start(); //Creamos una session
 			
+			//Comprobamos si en nuestra sesion estamos logeados o no
+			$email = $_SESSION["email"];
+						
 			//Conexión de Base de Datos	 
 			$connection = new mysqli($server, $user, $password, $bd_name);
 		 
@@ -34,7 +44,7 @@
 			    die("Connection failed: " . $connection->connect_error);
 			} 	 
 			
-			$sql = "SELECT * FROM usuario";		       
+			$sql = "SELECT * FROM preguntas";		       
             $consulta = mysqli_query($connection, $sql);
             $num_filas= $consulta->num_rows;
                         
@@ -46,10 +56,8 @@
                         echo "
                         <table border=5>
                             <tr>
-                                <th>Nombre Completo</th>												
-                                <th>Email</th>
-                                <th>Teléfono</th>
-                                <th>Especialidad</th>                       
+                                <th>Preguntas</th>												
+                                <th>Complejidad</th>                                              
                             </tr>
                             
                         "; 
@@ -60,10 +68,8 @@
                         while($row = $consulta->fetch_assoc()) {
                             echo "
                             <tr> 
-                                <td>".$row["nombre"]."</td>
-                                <td>".$row["email"]."</td>
-                                <td>".$row["telefono"]."</td>
-                                <td>".$row["especialidad"]."</td>                                  
+                                <td>".$row["pregunta"]."</td>
+                                <td>".$row["complejidad"]."</td>                                
                             </tr>";
                         }
                         //variables .$X. para imprimir?
@@ -72,6 +78,18 @@
                     } else {
                         echo "No hay entradas en la DB.";
                     }
+               
+               if($email=NULL){
+	               						//PARA FUTUROS LABORATORIOS
+
+						}
+						
+				else{
+											//PARA FUTUROS LABORATORIOS
+	
+						}     
+                    
+                    
               $connection->close();
   
 			?>		 

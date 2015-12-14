@@ -1,12 +1,8 @@
-  	
-			<?php 
-			
+<?php			
 			// Si sabemos que no necesitamos cambiar nada de la sesión,
 			// podemos simplemente leerla y cerrarla inmediatamente para evitar
 			// bloquear el fichero de sesión y otras páginas
-			
-			// La vida de nuestra cookie será de 10 minutos
-			
+						
 			session_start();
 			
 			//Generación de variables para conexión a Base de Datos
@@ -35,23 +31,23 @@
 			//el query en el caso de encontrar una consulta nos devuelve una estructura
 			$result=$connection->query($sql);
 			
+			//Parte optativa 1, metemos el correo, la id y la hora:
+			$sqlID = "INSERT INTO conexiones (mail)
+			VALUES ('{$_POST['email']}')";
+									
 			//cerramos la conexion
 			$connection->close();
 			
 			
-			//VER POR QUE LOS HEADERS NO REDIRIGEN
-			
 			if ($result->num_rows > 0)
-				{
-				echo "Usuario conectado con éxito.";
+				{	
 				$_SESSION["email"] = $_POST['email'];
-				header("location:layout.html");
-				
+				header("Location:InsertarPregunta.html");
+				exit;
 				} 
 				else {
-				echo "Error: Este usuario o contraseña es incorrecto";
-				echo "Error: " . $sql . "<br>" . $connection->error;				
+				echo "Error: Login incorrecto";
+				echo '<br>';
+				echo '<a href="layout.html">Volver</a>';				
 				}	
-			
-		 ?>
-		 
+?>
